@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Lider extends React.Component {
+export default class Paragraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,6 +9,11 @@ export default class Lider extends React.Component {
     this.submit = this.submit.bind(this);
     this.change = this.change.bind(this);
   }
+  componentDidMount() {
+    if (this.props.body) {
+      this.setState({ value: this.props.body });
+    }
+  }
   change(event) {
     this.setState({ value: event.target.value });
   }
@@ -16,29 +21,20 @@ export default class Lider extends React.Component {
     event.preventDefault();
     let { input } = event.target;
     let { value } = this.state;
-    if (!value || value.length < 100 || value.length > 200) {
+    if (!value) {
       input.style.border = "1px solid red";
     } else {
-      this.props.addData("lider", value);
+      this.props.addData("paragraph", value);
     }
   }
   render() {
     let { value } = this.state;
     let { length } = value;
     return (
-      <form onSubmit={this.submit} className="form lider">
+      <form onSubmit={this.submit} className="form paragraph">
         <div className="textarea">
-          <textarea
-            name="input"
-            placeholder="От 100 до 200 символов"
-            onChange={this.change}
-            value={value}
-          />
-          <span
-            className={length < 100 || length > 200 ? "length err" : "length"}
-          >
-            {length}
-          </span>
+          <textarea name="input" onChange={this.change} value={value} />
+          <span className="length">{length}</span>
         </div>
         <button type="submit">Сохранить</button>
       </form>

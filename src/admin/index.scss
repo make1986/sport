@@ -4,6 +4,7 @@ $headerHeight: 72px;
 $maxWidth: 1320px;
 $colorGeneral: #5c00bc;
 $titleFont: "Open Sans", sans-serif;
+$contentWidth: 872px;
 
 @import "../shared/Admin/index";
 
@@ -16,6 +17,7 @@ html {
 }
 .page__container {
   width: 100%;
-  height: 100%;
+  margin: auto;
   margin-top: $headerHeight;
+  max-width: $maxWidth;
 }

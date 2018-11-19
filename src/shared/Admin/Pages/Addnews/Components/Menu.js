@@ -7,8 +7,7 @@ const menu = [
   { slug: "h2", name: "Заголовок абзаца", required: false },
   { slug: "paragraph", name: "Абзац", required: false },
   { slug: "img", name: "Изображение", required: false },
-  { slug: "gallery", name: "Галерея", required: false },
-  { slug: "tags", name: "Теги", required: true }
+  { slug: "gallery", name: "Галерея", required: false }
 ];
 
 export default function Menu({ openForm, saveForm }) {

@@ -31,7 +31,15 @@ export const logoutAdmin = () => {
   return axios.get(`${config.API_PREFIX}/api/superman/logout`);
 };
 
+//Blog
+export const addBlog = data => {
+  return axios.post(`${config.API_PREFIX}/api/blog/add`, data);
+};
+
 //Files
 export const saveImage = data => {
   return axios.post(`${config.API_PREFIX}/api/file/add`, data);
+};
+export const saveArrayImage = data => {
+  return axios.post(`${config.API_PREFIX}/api/file/addarray`, data);
 };

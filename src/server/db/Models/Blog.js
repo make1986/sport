@@ -7,20 +7,17 @@ const BlogSchema = new Schema(
     title: {
       type: String
     },
-    liderParagraph: {
+    lider: {
       type: String
     },
-    img: {
-      type: Map
+    genImg: {
+      type: String
     },
     body: {
       type: Array //image(image, desc), gallery, titles, paragraph
     },
     opened: {
       type: Number
-    },
-    tags: {
-      type: Array
     }
   },
   { timestamps: { createdAt: "created_at" } }
