@@ -1,4 +1,4 @@
-// import fetch from "isomorphic-fetch";
+import fetch from "isomorphic-fetch";
 import axios from "axios";
 
 import config from "../../server/etc/config";
@@ -34,6 +34,32 @@ export const logoutAdmin = () => {
 //Blog
 export const addBlog = data => {
   return axios.post(`${config.API_PREFIX}/api/blog/add`, data);
+};
+export const getBlogs = (page = 1, search = "all") => {
+  let encodedURI = encodeURI(
+    `${config.API_PREFIX}/api/blog/get/${page}/${search}`
+  );
+  return fetch(encodedURI)
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      console.warn(err);
+      return null;
+    });
+};
+export const getBlogsById = id => {
+  let encodedURI = encodeURI(`${config.API_PREFIX}/api/blog/getbyid/${id}`);
+  return fetch(encodedURI)
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      console.warn(err);
+      return null;
+    });
 };
 
 //Files

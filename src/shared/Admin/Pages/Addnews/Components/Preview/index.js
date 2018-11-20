@@ -12,11 +12,12 @@ export default function Preview({
   genImg,
   openForm,
   delData,
-  upDown
+  upDown,
+  createdAt
 }) {
   return (
     <div className="add-news__preview">
-      <TopSection title={title} genImg={genImg} />
+      <TopSection title={title} genImg={genImg} createdAt={createdAt} />
       <p className="lider">
         {lider
           ? lider

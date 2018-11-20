@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import { addBlog } from "../../api";
+import { addBlog, getBlogsById } from "../../api";
 
 import Menu from "./Components/Menu";
 import Form from "./Components/Form";
@@ -10,22 +10,69 @@ import Preview from "./Components/Preview/index";
 export default class AddNewsPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [],
-      title: "",
-      lider: "",
-      genImg: "",
-      activeForm: "",
-      editForm: {},
-      editedIdx: -1,
-      redirect: false
-    };
+    let data;
+    let loadDataServer = false;
+    if (__isBrowser__) {
+      data = window.__INITIAL_DATA__;
+      delete window.__INITIAL_DATA__;
+    } else if (props.staticContext && props.staticContext.data) {
+      data = props.staticContext.data;
+    }
+    if (data && data.ok && data.data) {
+      this.state = {
+        data: data.data.body,
+        title: data.data.title,
+        lider: data.data.lider,
+        genImg: data.data.genImg,
+        createdAt: data.data.created_at,
+        activeForm: "",
+        editForm: {},
+        editedIdx: -1,
+        redirect: false
+      };
+    } else {
+      this.state = {
+        data: [],
+        title: "",
+        lider: "",
+        genImg: "",
+        createdAt: new Date(),
+        activeForm: "",
+        editForm: {},
+        editedIdx: -1,
+        redirect: false
+      };
+    }
+
     this.openForm = this.openForm.bind(this);
     this.saveForm = this.saveForm.bind(this);
     this.addData = this.addData.bind(this);
     this.editData = this.editData.bind(this);
     this.delData = this.delData.bind(this);
     this.upDown = this.upDown.bind(this);
+  }
+  componentDidMount() {
+    if (this.props.match.params && this.props.match.params.id) {
+      if (!this.state.data || this.state.data.length === 0) {
+        getBlogsById(this.props.match.params.id).then(res => {
+          if (res.ok && res.data) {
+            this.setState({
+              data: res.data.body,
+              title: res.data.title,
+              lider: res.data.lider,
+              genImg: res.data.genImg,
+              createdAt: res.data.created_at,
+              activeForm: "",
+              editForm: {},
+              editedIdx: -1,
+              redirect: false
+            });
+          } else {
+            this.props.addError(res.data.err);
+          }
+        });
+      }
+    }
   }
   openForm(slug) {
     if (slug.edit) {
@@ -122,7 +169,8 @@ export default class AddNewsPage extends React.Component {
       lider,
       genImg,
       editForm,
-      redirect
+      redirect,
+      createdAt
     } = this.state;
     const { addError } = this.props;
     if (redirect) {
@@ -144,6 +192,7 @@ export default class AddNewsPage extends React.Component {
             ""
           )}
           <Preview
+            createdAt={createdAt}
             openForm={openForm}
             data={data}
             title={title}

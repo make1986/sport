@@ -45,7 +45,6 @@ app.get("/admin/*", (req, res, next) => {
   if (req.session.superman) {
     const activeRoute =
       adminRoutes.find(route => matchPath(req.url, route)) || {};
-
     const promise = activeRoute.fetchInitialData
       ? activeRoute.fetchInitialData(req.path)
       : Promise.resolve();
