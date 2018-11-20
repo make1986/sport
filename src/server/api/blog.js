@@ -1,11 +1,15 @@
 import express from "express";
 
-import { AddBlog, GetBlogs, GetBlogsById } from "../db/Queries/Blog";
+import { AddBlog, GetBlogs, GetBlogsById, EditBlog } from "../db/Queries/Blog";
 
 const router = express.Router();
 
 router.post("/add", (req, res) => {
   AddBlog(req, res);
+});
+
+router.post("/edit", (req, res) => {
+  EditBlog(req, res);
 });
 
 router.get("/get/:page/:search", (req, res) => {

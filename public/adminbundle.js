@@ -754,7 +754,7 @@ module.exports = warning;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.saveArrayImage = exports.saveImage = exports.getBlogsById = exports.getBlogs = exports.addBlog = exports.logoutAdmin = exports.checkAuth = exports.addSuperuser = exports.checkAdmin = undefined;
+exports.saveArrayImage = exports.saveImage = exports.getBlogsById = exports.getBlogs = exports.editBlog = exports.addBlog = exports.logoutAdmin = exports.checkAuth = exports.addSuperuser = exports.checkAdmin = undefined;
 
 var _isomorphicFetch = __webpack_require__(81);
 
@@ -801,6 +801,9 @@ var logoutAdmin = exports.logoutAdmin = function logoutAdmin() {
 //Blog
 var addBlog = exports.addBlog = function addBlog(data) {
   return _axios2.default.post(_config2.default.API_PREFIX + "/api/blog/add", data);
+};
+var editBlog = exports.editBlog = function editBlog(data) {
+  return _axios2.default.post(_config2.default.API_PREFIX + "/api/blog/edit", data);
 };
 var getBlogs = exports.getBlogs = function getBlogs() {
   var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -17913,13 +17916,29 @@ var AddNewsPage = function (_React$Component) {
       } else if (data.length === 0) {
         addError("Тело статьи пустое! Напишите хотя бы один абзац или заголовок!");
       } else {
-        (0, _api.addBlog)({ body: data, title: title, lider: lider, genImg: genImg }).then(function (res) {
-          if (res.status === 200 && res.data.ok) {
-            _this3.setState({ redirect: true });
-          } else {
-            addError("Ошибка сервера, попробуйте позже!");
-          }
-        });
+        if (this.props.match.params && this.props.match.params.id) {
+          (0, _api.editBlog)({
+            body: data,
+            title: title,
+            lider: lider,
+            genImg: genImg,
+            id: this.props.match.params.id
+          }).then(function (res) {
+            if (res.status === 200 && res.data.ok) {
+              _this3.setState({ redirect: true });
+            } else {
+              addError("Ошибка сервера, попробуйте позже!");
+            }
+          });
+        } else {
+          (0, _api.addBlog)({ body: data, title: title, lider: lider, genImg: genImg }).then(function (res) {
+            if (res.status === 200 && res.data.ok) {
+              _this3.setState({ redirect: true });
+            } else {
+              addError("Ошибка сервера, попробуйте позже!");
+            }
+          });
+        }
       }
     }
   }, {

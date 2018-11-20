@@ -26,6 +26,34 @@ module.exports.AddBlog = (req, res) => {
   });
 };
 
+module.exports.EditBlog = (req, res) => {
+  let { body, title, lider, genImg, id } = req.body;
+
+  return Blog.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        body,
+        title,
+        lider,
+        genImg
+      }
+    },
+    (err, docs) => {
+      if (err) {
+        res.json({
+          ok: false,
+          err: "Ошибка на сервере, попробуйте позже!"
+        });
+      }
+      res.json({
+        ok: true,
+        err: ""
+      });
+    }
+  );
+};
+
 module.exports.GetBlogs = (req, res) => {
   let { page, search } = req.params;
   let limit = 10;

@@ -35,6 +35,9 @@ export const logoutAdmin = () => {
 export const addBlog = data => {
   return axios.post(`${config.API_PREFIX}/api/blog/add`, data);
 };
+export const editBlog = data => {
+  return axios.post(`${config.API_PREFIX}/api/blog/edit`, data);
+};
 export const getBlogs = (page = 1, search = "all") => {
   let encodedURI = encodeURI(
     `${config.API_PREFIX}/api/blog/get/${page}/${search}`

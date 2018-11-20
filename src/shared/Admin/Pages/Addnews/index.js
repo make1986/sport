@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import { addBlog, getBlogsById } from "../../api";
+import { addBlog, getBlogsById, editBlog } from "../../api";
 
 import Menu from "./Components/Menu";
 import Form from "./Components/Form";
@@ -151,13 +151,29 @@ export default class AddNewsPage extends React.Component {
         "Тело статьи пустое! Напишите хотя бы один абзац или заголовок!"
       );
     } else {
-      addBlog({ body: data, title, lider, genImg }).then(res => {
-        if (res.status === 200 && res.data.ok) {
-          this.setState({ redirect: true });
-        } else {
-          addError("Ошибка сервера, попробуйте позже!");
-        }
-      });
+      if (this.props.match.params && this.props.match.params.id) {
+        editBlog({
+          body: data,
+          title,
+          lider,
+          genImg,
+          id: this.props.match.params.id
+        }).then(res => {
+          if (res.status === 200 && res.data.ok) {
+            this.setState({ redirect: true });
+          } else {
+            addError("Ошибка сервера, попробуйте позже!");
+          }
+        });
+      } else {
+        addBlog({ body: data, title, lider, genImg }).then(res => {
+          if (res.status === 200 && res.data.ok) {
+            this.setState({ redirect: true });
+          } else {
+            addError("Ошибка сервера, попробуйте позже!");
+          }
+        });
+      }
     }
   }
   render() {
