@@ -16,6 +16,12 @@ const BlogSchema = new Schema(
     body: {
       type: Array //image(image, desc), gallery, titles, paragraph
     },
+    sport: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Sport"
+      }
+    ],
     opened: {
       type: Number
     }

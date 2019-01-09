@@ -1,0 +1,125 @@
+.add-sport {
+  min-height: calc(100vh - #{$headerHeight});
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      width: 322px;
+      height: 44px;
+      padding: 0 10px;
+      border-radius: 2px;
+      border: 1px solid #dcdcdc;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.75;
+      letter-spacing: normal;
+      text-align: left;
+      color: #111111;
+      margin-bottom: 10px;
+    }
+    textarea {
+      width: 322px;
+      height: 180px;
+      padding: 10px 10px;
+      border-radius: 2px;
+      border: 1px solid #dcdcdc;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      resize: none;
+      letter-spacing: normal;
+      text-align: left;
+      color: #111111;
+      margin-bottom: 10px;
+    }
+
+    #file {
+      display: none;
+    }
+    label {
+      width: 342px;
+      height: 44px;
+      background-color: #fff;
+      border: 1px solid #5c00bc;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      text-align: center;
+      color: #5c00bc;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+
+      &:hover {
+        background-color: #5c00bc;
+        color: #fff;
+      }
+    }
+    .img {
+      width: 342px;
+      position: relative;
+      margin-bottom: 20px;
+      img {
+        width: 100%;
+      }
+      .del-img {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background-color: #5c00bc;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: 0;
+        top: 0;
+      }
+    }
+    button {
+      width: 342px;
+      height: 44px;
+      background-color: #5c00bc;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      text-align: center;
+      color: #ffffff;
+      border-radius: 2px;
+
+      &:hover {
+        -webkit-box-shadow: 0px 0px 13px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow: 0px 0px 13px 0px rgba(50, 50, 50, 0.75);
+        box-shadow: 0px 0px 13px 0px rgba(50, 50, 50, 0.75);
+      }
+
+      &:active {
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+        box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+      }
+    }
+  }
+}

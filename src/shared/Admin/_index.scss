@@ -1,7 +1,30 @@
 @import "./Components/Header/index";
 @import "./Components/Error/index";
+@import "./Components/Confirmed/index";
+@import "./Components/Menu/index";
 @import "./Pages/Addnews/index";
 @import "./Pages/News/index";
+@import "./Pages/Addsport/index";
+@import "./Pages/Sport/index";
+
+.page__title {
+  font-family: $titleFont;
+  font-size: 36px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  background-color: #222222;
+  width: 100%;
+  height: 216px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
 
 .addbutton {
   position: fixed;

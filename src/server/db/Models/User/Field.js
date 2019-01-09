@@ -7,11 +7,17 @@ const FieldSchema = new Schema(
     name: {
       type: String
     },
+    quest: {
+      type: String
+    },
     type: {
       type: String
     },
-    setting: {
-      type: Map
+    options: {
+      type: Array
+    },
+    own: {
+      type: Boolean
     },
     required: {
       type: Boolean

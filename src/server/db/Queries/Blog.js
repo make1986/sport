@@ -7,9 +7,9 @@ import "../Models/Blog";
 const Blog = mongoose.model("Blog");
 
 module.exports.AddBlog = (req, res) => {
-  let { body, title, lider, genImg } = req.body;
+  let { body, title, lider, genImg, sport } = req.body;
 
-  let newBlog = new Blog({ body, title, lider, genImg });
+  let newBlog = new Blog({ body, title, lider, genImg, sport });
 
   return newBlog.save({}, (err, docs) => {
     if (err) {
@@ -27,7 +27,7 @@ module.exports.AddBlog = (req, res) => {
 };
 
 module.exports.EditBlog = (req, res) => {
-  let { body, title, lider, genImg, id } = req.body;
+  let { body, title, lider, genImg, id, sport } = req.body;
 
   return Blog.findByIdAndUpdate(
     id,
@@ -36,7 +36,8 @@ module.exports.EditBlog = (req, res) => {
         body,
         title,
         lider,
-        genImg
+        genImg,
+        sport
       }
     },
     (err, docs) => {
@@ -56,7 +57,7 @@ module.exports.EditBlog = (req, res) => {
 
 module.exports.GetBlogs = (req, res) => {
   let { page, search } = req.params;
-  let limit = 10;
+  let limit = 9;
   let skip = (page - 1) * limit;
   let reqparams = {};
   search = decodeURIComponent(search);
@@ -109,5 +110,19 @@ module.exports.GetBlogsById = (req, res) => {
       });
     }
     res.json({ ok: true, data: doc });
+  });
+};
+
+module.exports.DeleteBlog = (req, res) => {
+  let { id } = req.params;
+
+  return Blog.findByIdAndRemove(id, (err, doc) => {
+    if (err) {
+      res.json({
+        ok: false,
+        err: "Ошибка сервера, попробуйте позже!"
+      });
+    }
+    res.json({ ok: true, data: doc._id });
   });
 };

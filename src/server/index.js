@@ -15,7 +15,7 @@ import userRoutes from "../shared/User/routes";
 import adminRoutes from "../shared/Admin/routes";
 import db from "./db/connect";
 import sessionStore from "./sessionStore";
-import { superuser, file, blog } from "./api";
+import { superuser, file, blog, sport, events, field } from "./api";
 
 const app = express();
 db.setUpConnect();
@@ -38,6 +38,9 @@ app.use(
 app.use("/api/superman", superuser);
 app.use("/api/blog", blog);
 app.use("/api/file", file);
+app.use("/api/sport", sport);
+app.use("/api/event", events);
+app.use("/api/field", field);
 
 app.use(express.static("public"));
 

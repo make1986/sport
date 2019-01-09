@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import config from "../../../../../server/etc/config";
 import { DateAndTime } from "../../../../helpers/datetime";
 
-export default function AllNews({ data }) {
+export default function AllNews({ data, openConf, load }) {
   return (
     <section className="news__allnews">
       {data && data.data && data.data.length > 0 ? (
@@ -21,7 +21,9 @@ export default function AllNews({ data }) {
               />
               <div className="info">
                 <div className="menu">
-                  <span className="delete">Удалить</span>
+                  <span onClick={() => openConf(item._id)} className="delete">
+                    Удалить
+                  </span>
                   <Link className="edit" to={`/admin/editnews/${item._id}`}>
                     Изменить
                   </Link>
@@ -33,6 +35,13 @@ export default function AllNews({ data }) {
               </div>
             </div>
           ))}
+          {data.count > data.data.length ? (
+            <span onClick={load} className="load">
+              Загрузить еще
+            </span>
+          ) : (
+            ""
+          )}
         </div>
       ) : (
         ""

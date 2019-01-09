@@ -3,9 +3,20 @@ import { Redirect } from "react-router-dom";
 
 import { addBlog, getBlogsById, editBlog } from "../../api";
 
-import Menu from "./Components/Menu";
+import Menu from "../../Components/Menu";
 import Form from "./Components/Form";
 import Preview from "./Components/Preview/index";
+
+const menu = [
+  { slug: "h1", name: "Заголовок", required: true },
+  { slug: "lider", name: "Лидер абзац", required: true },
+  { slug: "gen-img", name: "Главное изображение", required: true },
+  { slug: "sport", name: "Дисциплина", required: false },
+  { slug: "h2", name: "Заголовок абзаца", required: false },
+  { slug: "paragraph", name: "Абзац", required: false },
+  { slug: "img", name: "Изображение", required: false },
+  { slug: "gallery", name: "Галерея", required: false }
+];
 
 export default class AddNewsPage extends React.Component {
   constructor(props) {
@@ -24,6 +35,7 @@ export default class AddNewsPage extends React.Component {
         title: data.data.title,
         lider: data.data.lider,
         genImg: data.data.genImg,
+        sport: data.data.sport ? data.data.sport : [],
         createdAt: data.data.created_at,
         activeForm: "",
         editForm: {},
@@ -36,6 +48,7 @@ export default class AddNewsPage extends React.Component {
         title: "",
         lider: "",
         genImg: "",
+        sport: [],
         createdAt: new Date(),
         activeForm: "",
         editForm: {},
@@ -52,6 +65,7 @@ export default class AddNewsPage extends React.Component {
     this.upDown = this.upDown.bind(this);
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (this.props.match.params && this.props.match.params.id) {
       if (!this.state.data || this.state.data.length === 0) {
         getBlogsById(this.props.match.params.id).then(res => {
@@ -62,6 +76,7 @@ export default class AddNewsPage extends React.Component {
               lider: res.data.lider,
               genImg: res.data.genImg,
               createdAt: res.data.created_at,
+              sport: res.data.sport ? res.data.sport : [],
               activeForm: "",
               editForm: {},
               editedIdx: -1,
@@ -129,6 +144,10 @@ export default class AddNewsPage extends React.Component {
       this.setState({ genImg: body, activeForm: "" }, function() {
         document.body.style.overflowY = "auto";
       });
+    } else if (type === "sport") {
+      this.setState({ sport: body, activeForm: "" }, function() {
+        document.body.style.overflowY = "auto";
+      });
     } else {
       let { data } = this.state;
       data.push({ type, body });
@@ -138,7 +157,7 @@ export default class AddNewsPage extends React.Component {
     }
   }
   saveForm() {
-    let { data, title, lider, genImg } = this.state;
+    let { data, title, lider, genImg, sport } = this.state;
     let { addError } = this.props;
     if (!title) {
       addError("Необходимо написать главный заголовок!");
@@ -157,6 +176,7 @@ export default class AddNewsPage extends React.Component {
           title,
           lider,
           genImg,
+          sport,
           id: this.props.match.params.id
         }).then(res => {
           if (res.status === 200 && res.data.ok) {
@@ -166,7 +186,7 @@ export default class AddNewsPage extends React.Component {
           }
         });
       } else {
-        addBlog({ body: data, title, lider, genImg }).then(res => {
+        addBlog({ body: data, title, lider, genImg, sport }).then(res => {
           if (res.status === 200 && res.data.ok) {
             this.setState({ redirect: true });
           } else {
@@ -186,7 +206,8 @@ export default class AddNewsPage extends React.Component {
       genImg,
       editForm,
       redirect,
-      createdAt
+      createdAt,
+      sport
     } = this.state;
     const { addError } = this.props;
     if (redirect) {
@@ -194,7 +215,7 @@ export default class AddNewsPage extends React.Component {
     } else {
       return (
         <div className="page__container add-news">
-          <Menu openForm={openForm} saveForm={saveForm} />
+          <Menu openForm={openForm} saveForm={saveForm} menu={menu} />
           {activeForm || editForm.type ? (
             <Form
               addError={addError}
@@ -203,6 +224,7 @@ export default class AddNewsPage extends React.Component {
               activeForm={activeForm}
               editForm={editForm}
               editData={editData}
+              sport={sport}
             />
           ) : (
             ""

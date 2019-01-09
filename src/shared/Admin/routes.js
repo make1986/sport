@@ -2,9 +2,18 @@ import Home from "./Pages/Home";
 import News from "./Pages/News";
 import AddNews from "./Pages/Addnews";
 import Events from "./Pages/Events";
+import Sport from "./Pages/Sport";
+import AddSport from "./Pages/Addsport";
+import AddEvent from "./Pages/Addevent";
 // import Grid from "./Pages/Grid";
 
-import { getBlogs, getBlogsById } from "./api";
+import {
+  getBlogs,
+  getBlogsById,
+  getSports,
+  getSportById,
+  getEvents
+} from "./api";
 
 function getParams(path, noparams) {
   let params = path.split(noparams)[1];
@@ -37,14 +46,29 @@ const routes = [
       getBlogsById(...getParams(path, "/admin/editnews/"))
   },
   {
-    path: "/admin/events",
-    component: Events
+    path: "/admin/events/:page?/:search?",
+    component: Events,
+    fetchInitialData: path => getEvents(...getParams(path, "/admin/events/"))
+  },
+  {
+    path: "/admin/addevent",
+    component: AddEvent
+  },
+  {
+    path: "/admin/sport",
+    component: Sport,
+    fetchInitialData: () => getSports()
+  },
+  {
+    path: "/admin/addsport",
+    component: AddSport
+  },
+  {
+    path: "/admin/editsport/:id",
+    component: AddSport,
+    fetchInitialData: path =>
+      getSportById(...getParams(path, "/admin/editsport/"))
   }
-  // {
-  //   path: "/popular/:id",
-  //   component: Grid,
-  //   fetchInitialData: (path = "") => fetchPopularRepos(path.split("/").pop())
-  // }
 ];
 
 export default routes;

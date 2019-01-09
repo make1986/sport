@@ -1,0 +1,92 @@
+.sport {
+  width: 100%;
+  background-color: #fff;
+  min-height: 100vh;
+
+  &__allsport {
+    width: 100%;
+    .data {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+      .item {
+        width: 438px;
+        border: 1px solid #ececed;
+        .img {
+          width: 100%;
+          height: 264px;
+          background-repeat: no-repeat !important;
+          background-size: cover !important;
+          background-position: center !important;
+        }
+        .info {
+          height: 120px;
+          width: 100%;
+          position: relative;
+          background-color: #222;
+
+          .menu {
+            width: 100%;
+            justify-content: center;
+            padding-top: 24px;
+            display: flex;
+
+            .delete {
+              font-size: 10px;
+              font-weight: bold;
+              font-style: normal;
+              font-stretch: normal;
+              line-height: 0.83;
+              letter-spacing: normal;
+              text-align: left;
+              color: red;
+              font-family: $titleFont;
+              cursor: pointer;
+              text-transform: uppercase;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            .edit {
+              font-size: 10px;
+              font-weight: bold;
+              font-style: normal;
+              font-stretch: normal;
+              line-height: 0.83;
+              letter-spacing: normal;
+              text-align: left;
+              color: #fff;
+              font-family: $titleFont;
+              text-decoration: none;
+              text-transform: uppercase;
+              margin-left: 10px;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+          h3 {
+            font-size: 24px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.25;
+            letter-spacing: -0.3px;
+            text-align: left;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            width: 372px;
+            height: 60px;
+            margin: auto;
+            margin-top: 14px;
+            font-family: $titleFont;
+          }
+        }
+      }
+    }
+  }
+}

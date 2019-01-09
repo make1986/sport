@@ -7,10 +7,13 @@ const SportSchema = new Schema(
     name: {
       type: String
     },
-    data: {
-      type: Array
+    desc: {
+      type: String
     },
     img: {
+      type: String
+    },
+    video: {
       type: String
     }
   },
